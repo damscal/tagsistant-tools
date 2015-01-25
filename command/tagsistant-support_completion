@@ -1,0 +1,34 @@
+#compdef tagsistant-support
+
+_tagsistant-support-options() {
+  _arguments \
+    '(- *)'-d'[show help]:directory:_files' \
+    '*: :_tagsistant-support-commands'
+}
+
+_tagsistant-support-commands() {
+  if ((CURRENT > 2)); then
+    # completion for subcommands
+  else
+    local commandDirectory
+    local commandFiles
+    local commandNum
+    local commands
+
+    commandDirectory=${HOME}/.tagsistant-command.d/
+    commandFiles=`find ${commandDirectory} -perm -u+x -type f -or -type l`
+
+    commandNum=`echo ${commandFiles} | wc -l`
+    commands=()
+    for i in `seq 1 ${commandNum}`
+    do 
+      commandFile=`echo ${commandFiles} | sed -n "${i}, ${i}p"`
+      fileName=${commandFile##*/}
+      message=`grep "^##" ${commandFile} | sed -e 's|^## ||g'`
+      commands=("${fileName}[$message]" ${commands})
+    done
+    _values "command" $commands
+  fi
+}
+
+_tagsistant-support-options $@
