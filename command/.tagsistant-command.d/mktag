@@ -1,0 +1,19 @@
+#! /bin/sh
+## create tags in current tagsistant filesystem
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage mktag <tag>*"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# create each tag
+for tag in $@
+do
+    mkdir ${mountPoint}/tags/$tag
+done
+
