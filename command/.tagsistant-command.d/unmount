@@ -1,0 +1,10 @@
+#! /bin/sh
+## unmount tagsistant filesystem
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage unmount <mount-directory>"
+     exit
+fi
+
+fusermount -u $1

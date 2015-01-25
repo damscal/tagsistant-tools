@@ -1,0 +1,15 @@
+#! /bin/sh
+## mount with default settings
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage qmount <mount-directory>"
+     exit
+fi
+
+mountPath=`readlink -f $1`
+homeDir=$HOME
+repository=${homeDir}/.tagsistant-dir`echo ${mountPath} | sed -e "s|${homeDir}||g"`
+
+mkdir -p ${repository}
+tagsistant --repository=${repository} ${mountPath}
