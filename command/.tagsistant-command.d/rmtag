@@ -1,0 +1,19 @@
+#! /bin/sh
+## remove tags in current tagsistant filesystem
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage rmtag <tag>*"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# remove each tag
+for tag in $@
+do
+    rmdir ${mountPoint}/tags/$tag
+done
+
