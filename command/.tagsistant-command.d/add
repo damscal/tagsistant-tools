@@ -1,0 +1,43 @@
+#! /bin/sh
+## add files into current tagsistant filesystem
+
+if [ $# -lt 3 ] 
+then 
+     echo "usage add <file>* - <tag>*"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# get file and tag
+files=""
+tags=""
+isTag=0
+tagPath=""
+for i in $@
+do
+    if [ ${isTag} -eq 0 ]
+    then 
+	if [ $i = "-" ]
+	then
+	    isTag=1
+	else
+	    files="${files} $i"
+	fi
+    else
+	tags="${tags} $i"
+	tagPath="${tagPath}/$i"
+    fi
+done
+
+# create each tag
+${directoryName}/mktag $tags
+
+# copy files
+for file in ${files}
+do
+    fileName=${file##*/}
+    cp ${file} ${mountPoint}/store${tagPath}/@/${fileName} -r
+done
