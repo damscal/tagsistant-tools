@@ -3,10 +3,11 @@
 # print help message
 printHelp() {
     echo "usage tagsistant [-d <command directory>] <command> <arguments>*"
-    for i in `ls $1`
+    for file in `find $1 -perm -u+x -type f -or -type l`
     do
-	message=`grep ^## $1/$i| sed -e 's|^##||g'`
-	echo "\t$i\t${message}" 
+	fileName=${file##*/}
+	message=`grep ^## $file| sed -e 's|^##||g'`
+	echo "\t${fileName}\t${message}" 
     done
 }
 
@@ -37,11 +38,12 @@ then
     exit
 fi
 
-for i in `ls ${commandDirectory}`
+for i in `find ${commandDirectory} -perm -u+x -type f -or -type l`
 do
-    if [ $i = ${commandName} ]
+    fileName=${i##*/}
+    if [ ${fileName} = ${commandName} ]
     then
-	${commandDirectory}/$i $@
+	${i} $@
 	exit
     fi
 done
