@@ -1,0 +1,50 @@
+#! /bin/sh
+
+# print help message
+printHelp() {
+    echo "usage tagsistant [-d <command directory>] <command> <arguments>*"
+    for i in `ls $1`
+    do
+	message=`grep ^## $1/$i| sed -e 's|^##||g'`
+	echo "\t$i\t${message}" 
+    done
+}
+
+# set default command directory
+commandDirectory=${HOME}/.tagsistant-command.d/
+
+if [ $# -eq 0 ] 
+then
+    printHelp ${commandDirectory}
+    exit
+fi
+
+# get command-name and remove command-name from arguments
+if [ $1 = "-d" ]
+then
+    commandDirectory=$2/
+    commandName=$3
+    shift 3
+else
+    commandDirectory=${HOME}/.tagsistant-command.d/
+    commandName=$1
+    shift 1
+fi
+
+if [ ${commandName} = "help" ]
+then
+    printHelp ${commandDirectory}
+    exit
+fi
+
+for i in `ls ${commandDirectory}`
+do
+    if [ $i = ${commandName} ]
+    then
+	${commandDirectory}/$i $@
+	exit
+    fi
+done
+
+echo "Invalid command-name:" ${commandName}
+printHelp ${commandDirectory}
