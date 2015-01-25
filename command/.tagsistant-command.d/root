@@ -1,0 +1,17 @@
+#! /bin/sh
+## print mount point of the current directory
+
+currentDirectory=`pwd`
+
+tagsistantMountPoints=`df | grep "^tagsistant" | awk '{print $6}'`
+
+for i in ${tagsistantMountPoints}
+do 
+    case $currentDirectory in
+	${i}*) 
+	    echo $i
+	    exit
+    esac
+done
+
+echo ${currentDirectory} is not mounted by tagsistant
