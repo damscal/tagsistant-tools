@@ -34,7 +34,6 @@ done
 
 # create each tag
 ${directoryName}/mktag $tags
-
 # copy files
 for file in ${files}
 do
@@ -45,7 +44,7 @@ do
 	    cp ${absPath} ${mountPoint}/store${tagPath}/@/${fileName} -r
 	    break ;;
 	*)
-	    ln -s ${absPath} ${mountPoint}/store${tagPath}/@/${fileName} -r
+	    ln -s ${absPath} ${mountPoint}/store${tagPath}/@/${fileName}
 	    break ;;
     esac
 done

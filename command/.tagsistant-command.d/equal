@@ -1,0 +1,20 @@
+#! /bin/sh
+## add equal relation to tags
+
+if [ $# -lt 2 ] 
+then 
+     echo "usage equal <tag1> <tag2> (tag1 equals tag2)"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+from=$1
+to=$2
+
+# create each tag
+${directoryName}/mktag ${from} ${to}
+
+mkdir -p ${mountPoint}/relations/${from}/is_equivalent/${to}

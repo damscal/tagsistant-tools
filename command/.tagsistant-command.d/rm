@@ -1,0 +1,26 @@
+#! /bin/sh
+## remove file from tagsistant
+ 
+if [ $# -eq 0 ] 
+then 
+     echo "usage rm <file>*"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# get files to remove
+files=$@
+
+for file in ${files}
+do
+    query=""
+    fileName=${file##*/}
+    for tag in `${directoryName}/tags ${file}`
+    do
+	query="${query}/${tag}"
+    done
+    rm ${mountPoint}/store/${query}/@/${fileName} -r
+done

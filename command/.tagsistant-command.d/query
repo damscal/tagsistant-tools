@@ -1,0 +1,59 @@
+#! /bin/sh
+## make query
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+exec scala -save "$0" ${mountPoint} "$@"
+!#
+
+import scala.language.implicitConversions
+import scala.language.postfixOps
+
+if (args.length == 1) {
+  println("usage query <query>")
+  System.exit(0)
+}
+
+import scala.collection.mutable
+
+trait AbstractTag
+case class TagGroup(tags: Set[Tag]) extends AbstractTag
+case class Tag(tag: String) extends AbstractTag
+case class NotTag(tag: Tag) extends AbstractTag
+
+val mountPoint = args(0)
+
+val startTagGroup = "\\{(.*)".r
+val endTagGroup = "([^\\}-]*)\\}".r
+val notTagGroup1 = "-([^\\{\\}]*)".r
+val notTagGroup2 = "-\\{([^\\}]*)\\}".r
+
+val buffer = mutable.Set[String]()
+val query = mutable.ListBuffer[AbstractTag]()
+var flag = false
+for (arg <- args.drop(1)) {
+  arg match {
+    case startTagGroup(tag) =>
+      flag = true
+      buffer += tag
+    case endTagGroup(tag) if flag => 
+      buffer += tag
+      query += TagGroup(buffer.map(Tag(_)).toSet)
+      flag = false
+    case notTagGroup1(tag) =>
+      query += NotTag(Tag(tag))
+    case notTagGroup2(tag) =>
+      query += NotTag(Tag(tag))
+    case tag => 
+      query += Tag(tag)
+  }
+}
+
+
+val result = 
+  query.foldLeft("")((q, tag) => tag match {
+    case TagGroup(tags) => q + "{/" + tags.foldLeft("")(_+_.tag+"/") + "}"
+    case Tag(tag) => q + "/" + tag
+    case NotTag(tag) => q + "/-/" + tag.tag
+  })
+println(mountPoint + "/store/" + result + "/")

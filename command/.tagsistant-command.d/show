@@ -1,0 +1,42 @@
+#! /bin/sh
+## show information in current tagsistant filesystem
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage show (--text|--dot)"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+
+
+if [ $1 = "--dot" ]
+then
+    maxNodeSize=5 # maximum size of nodes (if a tag contains all files, the node of the tag is ${maxNodeSize} inch)
+    allFileNum=`ls ${mountPoint}/store/ALL/@/ | wc -l`
+    echo "digraph {"
+    for tag in `ls ${mountPoint}/tags`
+    do
+	fileNum=`ls ${mountPoint}/store/${tag}/@/ | wc -l`
+	nodeSize=`echo "scale=7;${fileNum}/${allFileNum}*${maxNodeSize}" | bc`
+	echo "\"${tag}\"[label=\"${tag} (${fileNum} files)\", fixedsize=true, width=${nodeSize}, height=${nodeSize}]"
+	for include in `ls ${mountPoint}/relations/${tag}/includes`
+	do
+	    echo "${tag} -> ${include}"
+	done
+	for equal in `ls ${mountPoint}/relations/${tag}/is_equivalent`
+	do
+	    echo "${tag} -> ${equal} [dir=none, style=bold]"
+	done
+    done
+    echo "}"
+else 
+    for tag in `ls ${mountPoint}/tags`
+    do
+	fileNum=`ls ${mountPoint}/store/${tag}/@/ | wc -l`
+	echo "${tag} (${fileNum} files)"
+    done
+fi

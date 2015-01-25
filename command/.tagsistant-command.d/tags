@@ -1,0 +1,17 @@
+#! /bin/sh
+## show tags 
+
+if [ $# -eq 0 ] 
+then 
+     echo "usage tags <file>" 
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# get file
+file=$1
+
+cat ${file}.tags

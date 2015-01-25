@@ -1,0 +1,20 @@
+#! /bin/sh
+## rename file
+
+if [ $# -lt 2 ] 
+then 
+     echo "usage rename <file> <name>"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# get files to remove
+file=$1
+name=$2
+
+path=${file%/*}
+
+mv ${file} ${path}/${name}
