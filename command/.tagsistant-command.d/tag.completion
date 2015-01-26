@@ -1,0 +1,35 @@
+__tagsistant-support_tag() {
+  local isTag
+  local commandDir
+  local tags
+  local tagNum
+  local values
+
+  commandDir=$1
+  isTag=1
+  shift 2
+  for i in $@
+  do
+    if [ $i = "_" ]
+    then
+      isTag=0
+    fi
+  done
+
+  if [ "${isTag}" = "1" ]
+  then
+    _files
+  else
+    tags=`${commandDir}/lstag`
+    tagNum=`echo ${tags} | wc -l`
+    values=()
+    for i in `seq 1 ${tagNum}`
+    do
+      tagName=`echo ${tags} | sed -n "${i}, ${i}p"`
+      values=(${values} "${tagName}")
+    done
+    
+    _values "tags" ${values}
+  fi
+  return 0;
+}

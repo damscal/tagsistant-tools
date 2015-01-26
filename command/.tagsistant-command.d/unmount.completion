@@ -1,0 +1,3 @@
+__tagsistant-support_unmount() {
+  _files # todo remove inappropriate files or directories
+}

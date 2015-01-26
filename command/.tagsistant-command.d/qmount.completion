@@ -1,0 +1,3 @@
+__tagsistant-support_qmount() {
+  _files # todo remove file from candidates
+}

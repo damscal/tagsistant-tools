@@ -1,0 +1,3 @@
+__tagsistant-support_show() {
+  _values option "--text[output text information]" "--dot[output directed graph written in dot]"
+}
