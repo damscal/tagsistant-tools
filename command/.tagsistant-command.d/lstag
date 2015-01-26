@@ -1,0 +1,13 @@
+#! /bin/sh
+## list all tags in current tagsistant filesystem
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+
+for i in `find ${mountPoint}/tags -mindepth 1 -maxdepth 1 -type d`
+do
+  tag=${i##*/}
+  echo $tag
+done
