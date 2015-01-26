@@ -42,9 +42,9 @@ do
     case ${absPath} in
 	${mountPoint}*)
 	    cp ${absPath} ${mountPoint}/store${tagPath}/@/${fileName} -r
-	    break ;;
+	    ;;
 	*)
 	    ln -s ${absPath} ${mountPoint}/store${tagPath}/@/${fileName}
-	    break ;;
+	    ;;
     esac
 done
