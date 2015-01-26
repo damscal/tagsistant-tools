@@ -1,34 +1,79 @@
 #compdef tagsistant-support
 
-_tagsistant-support-options() {
-  _arguments \
-    '(- *)'-d'[show help]:directory:_files' \
-    '*: :_tagsistant-support-commands'
+__tagsistant-support_set_command() {
+  local commandDirectory
+  local commandFiles
+  local commandNum
+  local commands
+
+  # export TAGSISTANT_DIRECTORY to use in subcommand completion
+  TAGSISTANT_DIRECTORY=$1
+  export TAGSISTANT_DIRECTORY
+  
+  commandDirectory=$1
+  commandFiles=`find ${commandDirectory} -perm -u+x -type f -or -type l`
+ 
+  commandNum=`echo ${commandFiles} | wc -l`
+  commands=()
+  for i in `seq 1 ${commandNum}`
+  do 
+    commandFile=`echo ${commandFiles} | sed -n "${i}, ${i}p"`
+    fileName=${commandFile##*/}
+    message=`grep "^##" ${commandFile} | sed -e 's|^## ||g'`
+    commands=("${fileName}[$message]" ${commands})
+  done
+  _values "command" $commands
 }
 
-_tagsistant-support-commands() {
-  if ((CURRENT > 2)); then
-    # completion for subcommands
-  else
-    local commandDirectory
-    local commandFiles
-    local commandNum
-    local commands
+__tagsistant-support_command() {
+  __tagsistant-support_set_command $3
+}
 
-    commandDirectory=${HOME}/.tagsistant-command.d/
-    commandFiles=`find ${commandDirectory} -perm -u+x -type f -or -type l`
+__tagsistant-support_command_or_subcommand() {
+  if [ "$CURRENT" = 2 ]
+  then 
+    # command
+    __tagsistant-support_set_command ${HOME}/.tagsistant-command.d/
+  else 
+    # subcommand
 
-    commandNum=`echo ${commandFiles} | wc -l`
-    commands=()
-    for i in `seq 1 ${commandNum}`
-    do 
-      commandFile=`echo ${commandFiles} | sed -n "${i}, ${i}p"`
-      fileName=${commandFile##*/}
-      message=`grep "^##" ${commandFile} | sed -e 's|^## ||g'`
-      commands=("${fileName}[$message]" ${commands})
-    done
-    _values "command" $commands
+    local command
+    local subcommandWords
+    local subcommandCompletion
+
+    # get command name and
+    # extract arguments related to subcommand
+    subcommandWords=()
+    if [ $words[2] = "-d" ] 
+    then
+       command=$words[4]
+       for i in `seq 5 ${#words[*]}`
+       do
+         subcommandWords=(${subcommandWords} $words[$i])
+       done
+    else 
+       command=$words[2]
+       for i in `seq 3 ${#words[*]}`
+       do
+         subcommandWords=(${subcommandWords} $words[$i])
+       done
+    fi
+    
+    # call subcommand completion function
+    subcommandCompletion=${TAGSISTANT_DIRECTORY}/${command}.completion
+    if [ -e ${subcommandCompletion} ]
+    then 
+      . ${subcommandCompletion}
+      __tagsistant-support_${command} ${TAGSISTANT_DIRECTORY} ${command} ${subcommandWords}
+    fi  
+
   fi
 }
 
-_tagsistant-support-options $@
+_tagsistant-support() {
+  _arguments \
+    '(- *:)'-d'[set commands dicretory]:directory:_files:command:__tagsistant-support_command $words[3]/' \
+    '*: :__tagsistant-support_command_or_subcommand'
+}
+
+_tagsistant-support $@
