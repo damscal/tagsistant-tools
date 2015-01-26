@@ -1,0 +1,4 @@
+__tagsistant-support_tags() {
+  _files
+  return 0;
+}
