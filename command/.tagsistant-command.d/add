@@ -3,7 +3,7 @@
 
 if [ $# -lt 3 ] 
 then 
-     echo "usage add <file>* - <tag>*"
+     echo "usage add <file>* _ <tag>*"
      exit
 fi
 
@@ -20,7 +20,7 @@ for i in $@
 do
     if [ ${isTag} -eq 0 ]
     then 
-	if [ $i = "-" ]
+	if [ $i = "_" ]
 	then
 	    isTag=1
 	else
