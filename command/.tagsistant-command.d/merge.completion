@@ -1,0 +1,16 @@
+__tagsistant-support_merge() {
+  local commandDir
+
+  commandDir=$1
+  tags=`${commandDir}/lstag`
+  tagNum=`echo ${tags} | wc -l`
+  values=()
+  for i in `seq 1 ${tagNum}`
+  do
+    tagName=`echo ${tags} | sed -n "${i}, ${i}p"`
+    values=(${values} "${tagName}")
+  done
+  
+  _values "tags" ${values}
+  return 0;
+}

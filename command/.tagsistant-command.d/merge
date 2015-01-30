@@ -1,0 +1,21 @@
+#! /bin/sh
+## merge tags into first tag
+
+if [ $# -lt 2 ] 
+then 
+     echo "usage merge <tag> <tag>*"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# merge tag into first tag
+mergeTag=$1
+shift
+for tag in $@
+do
+    mv ${mountPoint}/store/${tag}/@/* ${mountPoint}/store/${mergeTag}/@/
+    ${directoryName}/rmtag ${tag}
+done

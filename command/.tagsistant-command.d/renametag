@@ -1,0 +1,15 @@
+#! /bin/sh
+## rename tag
+
+if [ $# -lt 2 ] 
+then 
+     echo "usage rename <tag> <new-tag-name>"
+     exit
+fi
+
+# get mount point
+directoryName=`dirname $0`
+mountPoint=`${directoryName}/root`
+
+# rename
+mv ${mountPoint}/tags/$1 ${mountPoint}/tags/$2
