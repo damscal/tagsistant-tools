@@ -5,8 +5,5 @@
 directoryName=`dirname $0`
 mountPoint=`${directoryName}/root`
 
-for file in `find ${mountPoint}/archive -type l -or -type f`
-do
-  fileName=${file##*/}
-  echo `echo ${fileName} | sed -e "s|^[0-9]*___||g"`
-done
+ls --color -B ${mountPoint}/store/ALL/@/
+
