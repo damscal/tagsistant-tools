@@ -11,8 +11,6 @@ fi
 directoryName=`dirname $0`
 mountPoint=`${directoryName}/root`
 
-
-
 if [ $1 = "--dot" ]
 then
     maxNodeSize=5 # maximum size of nodes (if a tag contains all files, the node of the tag is ${maxNodeSize} inch)

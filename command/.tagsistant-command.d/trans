@@ -39,5 +39,5 @@ ${directoryName}/mktag $tags
 for file in ${files}
 do
     fileName=${file##*/}
-    mv ${file} ${mountPoint}/store${tagPath}/@/${fileName} -r
+    mv "${file}" ${mountPoint}/store${tagPath}/@/${fileName}
 done
