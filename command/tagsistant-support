@@ -3,6 +3,9 @@
 # print help message
 printHelp() {
     echo "usage tagsistant [-d <command directory>] <command> <arguments>*"
+    echo "options:"
+    echo "\t-d\tconfigure command directory"
+    echo "commands:"
     for file in `find $1 -perm -u+x -type f -or -type l`
     do
 	fileName=${file##*/}
