@@ -53,12 +53,12 @@ If you want to add commands to `tagsistant-support`, you write a shell script in
 
 Here is an example of adding `test` command.
 ```bash
-$ echo "echo $1" > ~/.tagsistant-command.d/test
+$ echo 'echo $1' > ~/.tagsistant-command.d/test
 $ chmod u+x ~/.tagsistant-command.d/test
 $ tagsistant-support test foo
 foo
 ```
-In zsh, `tagsistant-support` supports argument completion. You define `__tagsistant-support_<command-name>` function in ${HOME}/.tagsistant-command.d/<command-name>.completion` and `__tagsistant-support_<command-name>` function is used as a completion function. Examples are in [here](https://github.com/HiroakiMikami/tagsistant-tools/tree/master/command/.tagsistant-command.d).
+In zsh, `tagsistant-support` supports argument completion. You define `__tagsistant-support_<command-name>` function in `${HOME}/.tagsistant-command.d/<command-name>.completion` and `__tagsistant-support_<command-name>` function is used as a completion function. Examples are in [here](https://github.com/HiroakiMikami/tagsistant-tools/tree/master/command/.tagsistant-command.d).
 
 ## Future Directions
 * integrate Firefox: I want to make Firefox addon to help for using tagsistant from Firefox.
