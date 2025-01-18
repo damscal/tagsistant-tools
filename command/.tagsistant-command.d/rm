@@ -18,6 +18,7 @@ for file in ${files}
 do
     query=""
     fileName=${file##*/}
+    index=0
     for tag in `${directoryName}/tags ${file}`
     do
         # if tag happens to be an empty string, skip it
@@ -26,7 +27,13 @@ do
         if echo "${tag}" | grep -qE ":.*="; then
             tag=`echo "${tag}" | sed 's/:/:\//; s/=/\/eq\//'`  
         fi
-	    query="${query}/${tag}"
+        # if we are at the first tag...
+        if [ $index -eq 0 ]; then
+            query="${tag}"
+        else
+	        query="${query}/${tag}"
+        fi
+        index=`$index + 1`
     done
     rm ${mountPoint}/store/${query}/@/${fileName} -r
 done
