@@ -1,6 +1,6 @@
-#compdef tagsistant-support
+#compdef tagsistant-tools
 
-__tagsistant-support_set_command() {
+__tagsistant-tools_set_command() {
   local commandDirectory
   local commandFiles
   local commandNum
@@ -21,15 +21,15 @@ __tagsistant-support_set_command() {
   _values "command" $commands
 }
 
-__tagsistant-support_command() {
-  __tagsistant-support_set_command $3
+__tagsistant-tools_command() {
+  __tagsistant-tools_set_command $3
 }
 
-__tagsistant-support_command_or_subcommand() {
+__tagsistant-tools_command_or_subcommand() {
   if [ "$CURRENT" = 2 ]
   then 
     # command
-    __tagsistant-support_set_command ${HOME}/.tagsistant-command.d/
+    __tagsistant-tools_set_command ${HOME}/.tagsistant-command.d/
   else 
     # subcommand
 
@@ -63,16 +63,16 @@ __tagsistant-support_command_or_subcommand() {
     if [ -e ${subcommandCompletion} ]
     then 
       . ${subcommandCompletion}
-      __tagsistant-support_${command} ${commandDirectory} ${command} ${subcommandWords}
+      __tagsistant-tools_${command} ${commandDirectory} ${command} ${subcommandWords}
     fi  
 
   fi
 }
 
-_tagsistant-support() {
+_tagsistant-tools() {
   _arguments \
-    '(- *:)'-d'[set commands dicretory]:directory:_files:command:__tagsistant-support_command $words[3]/' \
-    '*: :__tagsistant-support_command_or_subcommand'
+    '(- *:)'-d'[set commands dicretory]:directory:_files:command:__tagsistant-tools_command $words[3]/' \
+    '*: :__tagsistant-tools_command_or_subcommand'
 }
 
-_tagsistant-support $@
+_tagsistant-tools $@

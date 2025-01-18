@@ -2,7 +2,7 @@
 
 # print help message
 printHelp() {
-    echo "usage tagsistant [-d <command directory>] <command> <arguments>*"
+    echo "usage tagsistant-tools [-d <command directory>] <command> <arguments>*"
     echo "options:"
     echo "\t-d\tconfigure command directory"
     echo "commands:"

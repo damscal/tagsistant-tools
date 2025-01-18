@@ -1,4 +1,4 @@
-__tagsistant-support_rmtag() {
+__tagsistant-tools_rmtag() {
   local commandDir
 
   commandDir=$1

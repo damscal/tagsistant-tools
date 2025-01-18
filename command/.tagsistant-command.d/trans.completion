@@ -1,4 +1,4 @@
-__tagsistant-support_trans() {
+__tagsistant-tools_trans() {
   local isTag
   local commandDir
   local tags

@@ -1,3 +1,3 @@
-__tagsistant-support_qmount() {
+__tagsistant-tools_qmount() {
   _files # todo remove file from candidates
 }

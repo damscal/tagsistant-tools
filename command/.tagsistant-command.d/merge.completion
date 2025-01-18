@@ -1,4 +1,4 @@
-__tagsistant-support_merge() {
+__tagsistant-tools_merge() {
   local commandDir
 
   commandDir=$1

@@ -1,4 +1,4 @@
-__tagsistant-support_rm() {
+__tagsistant-tools_rm() {
   _files
   return 0;
 }
