@@ -20,7 +20,11 @@ do
     fileName=${file##*/}
     for tag in `${directoryName}/tags ${file}`
     do
-	query="${query}/${tag}"
+        # process triple tags
+        if echo "${tag}" | grep -qE ":.*="; then
+            tag=`echo "${tag}" | sed 's/:/:\/\//; s/=/\/eq\//'`  
+        fi
+	    query="${query}/${tag}"
     done
     rm ${mountPoint}/store/${query}/@/${fileName} -r
 done
