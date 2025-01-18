@@ -22,9 +22,9 @@ do
     do
         # process triple tags
         if echo "${tag}" | grep -qE ":.*="; then
-            tag=`echo "${tag}" | sed 's/:/:\/\//; s/=/\/eq\//'`  
+            tag=`echo "${tag}" | sed 's/:/:\//; s/=/\/eq\//'`  
         fi
 	    query="${query}/${tag}"
     done
-    rm ${mountPoint}/store/${query}/@/${fileName} -r
+    rm ${mountPoint}store/${query}/@/${fileName} -r
 done
