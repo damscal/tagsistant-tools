@@ -3,13 +3,18 @@
  
 if [ $# -eq 0 ] 
 then 
-     echo "usage rm <file>*"
+     echo "usage trash <file>*"
      exit
 fi
 
 # get mount point
 directoryName=`dirname $0`
 mountPoint=`${directoryName}/root`
+
+if [ $? -ne 0 ]; then
+    echo "invalid mountpoint"
+    exit 1
+fi
 
 # get files to remove
 files=$@

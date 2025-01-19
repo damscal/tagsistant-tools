@@ -10,7 +10,7 @@ do
     case `realpath $currentDirectory` in
 	${i}*) 
 	    echo $i
-	    exit
+	    exit 0
     esac
 done
 
