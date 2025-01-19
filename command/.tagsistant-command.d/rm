@@ -28,12 +28,12 @@ do
             tag=`echo "${tag}" | sed 's/:/:\//; s/=/\/eq\//'`  
         fi
         # if we are at the first tag...
-        if [ $index -eq 0 ]; then
+        if [ "$index" -eq 0 ]; then
             query="${tag}"
         else
 	        query="${query}/${tag}"
         fi
-        index=`$index + 1`
+        index=`expr $index + 1`
     done
     rm ${mountPoint}/store/${query}/@/${fileName} -r
 done
