@@ -9,7 +9,7 @@ fi
 
 # get mount point
 directoryName=`dirname $0`
-mountPoint=`${directoryName}/root $@`
+mountPoint=`${directoryName}/root $1`
 
 if [ $? -ne 0 ]; then
     echo "invalid mountpoint"
@@ -41,4 +41,5 @@ do
         index=`expr $index + 1`
     done
     rm ${mountPoint}/store/${query}/@/${fileName} -r
+    echo "deleted: ${mountPoint}/store/${query}/@/${fileName}"
 done
