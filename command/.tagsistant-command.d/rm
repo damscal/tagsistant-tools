@@ -25,7 +25,7 @@ do
         [ -z "${tag}" ] && continue
         # process triple tags
         if echo "${tag}" | grep -qE ":.*="; then
-            tag=`echo "${tag}" | sed 's/:/:\//; s/=/\/eq\//'`  
+            tag=`echo "${tag}" | sed 's/:/:\//; s/\(.*\)=/\1\/eq\//'`  
         fi
         # if we are at the first tag...
         if [ "$index" -eq 0 ]; then
