@@ -23,7 +23,7 @@
           installPhase = ''
             mkdir -p $out/bin/tagsistant-command.d
             cp command/tagsistant-tools $out/bin/tagsistant-tools
-            cp -r command/.tagsistant-command.d $out/bin/tagsistant-command.d
+            cp command/.tagsistant-command.d/* $out/bin/tagsistant-command.d/
             chmod +x $out/bin/tagsistant-tools
             chmod -R +x $out/bin/tagsistant-command.d/
             
