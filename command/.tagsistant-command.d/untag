@@ -11,6 +11,11 @@ fi
 directoryName=`dirname $0`
 mountPoint=`${directoryName}/root $1`
 
+if [ $? -ne 0 ]; then
+    echo "invalid mountpoint"
+    exit 1
+fi
+
 # get file and tag
 files=""
 tags=""

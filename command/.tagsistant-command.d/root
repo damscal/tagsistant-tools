@@ -18,5 +18,5 @@ do
     fi
 done
 
-echo $targetPath is not mounted by tagsistant
+echo not mounted by tagsistant
 exit 1
