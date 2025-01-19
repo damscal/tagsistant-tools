@@ -15,4 +15,4 @@ do
 done
 
 echo ${currentDirectory} is not mounted by tagsistant
-return 1
+exit 1
