@@ -4,13 +4,13 @@
 printHelp() {
     echo "usage tagsistant-tools [-d <command directory>] <command> <arguments>*"
     echo "options:"
-    echo "\t-d\tconfigure command directory"
+    echo -e "\t-d\tconfigure command directory"
     echo "commands:"
     for file in `find $1 -perm -u+x -type f -or -type l`
     do
 	fileName=${file##*/}
 	message=`grep ^## $file| sed -e 's|^##||g'`
-	echo "\t${fileName}\t${message}" 
+	echo -e "\t${fileName}\t${message}" 
     done
 }
 
