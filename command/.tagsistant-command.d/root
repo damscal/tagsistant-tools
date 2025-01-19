@@ -4,7 +4,7 @@
 
 tagsistantMountPoints=`df | grep "^tagsistant" | awk '{print $6}'`
 
-if [ -e "$1" ]; then
+if [ -e "$1" ] || [ -L "$1" ]; then
 	targetPath=`realpath "$(dirname "$1")"`
 else
 	targetPath=`realpath "$(pwd)"`
