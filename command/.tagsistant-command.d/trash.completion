@@ -1,0 +1,4 @@
+__tagsistant-tools_trash() {
+  _files
+  return 0;
+}

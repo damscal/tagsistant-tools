@@ -22,7 +22,7 @@ Tools for using [tagsistant](http://www.tagsistant.net/)
 |move file from other filesystem|`tagsistant-tools trans <file1> <file2> ... _ <tag1> <tag2> ...`|
 |add tags to file|`tagsistant-tools tag <file1> <file2> ... _ <tag1> <tag2> ...`|
 |remove tags from file|`tagsistant-tools untag <file1> <file2> ... _ <tag1> <tag2> ...`|
-|remove file|`tagsistant-tools rm <file1> <file2> ...`|
+|remove file|`tagsistant-tools trash <file1> <file2> ...`|
 |rename file|`tagsistant-tools rename <file1> <new-name>`|
 
 Here is an example of tagsistant-tools command usage.
